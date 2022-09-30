@@ -25,19 +25,19 @@
            <div class="text-white text-xl">
                 <ul class="hidden lg:flex">
                     <li class="mr-10">
-                        <span><i class="fa-solid fa-house"></i></span>
+                        <span><i class="fa-solid fa-house text-yellow-500"></i></span>
                         <span>Home</span>
                     </li>
                     <li class="mr-10">
-                        <span><i class="fa-solid fa-heart"></i></span>
+                        <span><i class="fa-solid fa-heart text-yellow-500"></i></span>
                         <span>Wishlist</span>
                     </li>
                     <li class="mr-10">
-                        <span><i class="fa-solid fa-trash"></i></span>
+                        <span><i class="fa-solid fa-trash text-yellow-500"></i></span>
                         <span>Recycle Bin</span>
                     </li>
                     <li class="mr-10 relative">
-                        <span><i class="fa-solid fa-cart-shopping"></i></span>
+                        <label for="my-drawer-4" class="drawer-button"><span><i class="fa-solid fa-cart-shopping text-yellow-500"></i></span></label>
                         <span><div class="badge badge-secondary w-10 absolute top-[-15px]">+99</div></span>
                     </li>
                 </ul>
@@ -71,15 +71,34 @@
                     </a></li>
                     <li><a>
                         <li class="mr-10">
-                            <span><i class="fa-solid fa-cart-shopping"></i></span>
-                            <span>
-                                Cart
-                            </span>
+                            <label for="my-drawer-4" class="drawer-button"><span><i
+                                        class="fa-solid fa-cart-shopping"></i></span>
+                                        <span class="ml-2">Cart</span>
+                                    </label>
                         </li>
                     </a></li>
                 </ul>
             </div>
         </div>
     </div>
+
+    <!-- drawer starts here -->
+<div class="drawer drawer-end">
+    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+        <!-- Page content here -->
+        
+    </div>
+    <div class="drawer-side">
+        <label for="my-drawer-4" class="drawer-overlay"></label>
+        <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+            <!-- Sidebar content here -->
+            <li><a>Sidebar Item 1</a></li>
+            <li><a>Sidebar Item 2</a></li>
+        </ul>
+    </div>
+</div> 
+
+    <!-- drawer ends here -->
 </body>
 </html>
