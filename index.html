@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- daysi Ui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <!-- tailwindcss -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- fontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>E-commerce Project</title>
+</head>
+<body>
+    <!-- navbar -->
+    <div class="navbar bg-slate-600" >
+        <div class="flex-1">
+            <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+        </div>
+        <div class="flex-none gap-2">
+           <div class="text-white text-2xl">
+                <ul class="flex">
+                    <li class="mr-10">
+                        <span><i class="fa-solid fa-house"></i></span>
+                        <span>Home</span>
+                    </li>
+                    <li class="mr-10">
+                        <span><i class="fa-solid fa-heart"></i></span>
+                        <span>Wishlist</span>
+                    </li>
+                    <li class="mr-10">
+                        <span><i class="fa-solid fa-trash"></i></span>
+                        <span>Recycle Bin</span>
+                    </li>
+                    <li class="mr-10">
+                        <span><i class="fa-solid fa-cart-shopping"></i></span>
+                        <span>Cart</span>
+                    </li>
+                </ul>
+           </div>
+            <div class="dropdown dropdown-end">
+                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </label>
+                <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                    <li>
+                        <a class="justify-between">
+                            Profile
+                            <span class="badge">New</span>
+                        </a>
+                    </li>
+                    <li><a>Settings</a></li>
+                    <li><a>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
