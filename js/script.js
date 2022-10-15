@@ -1,4 +1,10 @@
 let loadPhone;
+let count = 0;
+let pPrice = 0;
+let productTax = 0;
+let totalProductPrice = 0;
+let restData = [];
+
 const phoneData = async() => {
     const res = await fetch("../data.json");
     const data = await res.json();
@@ -62,10 +68,7 @@ function handleSingleData(id) {
     showModal.appendChild(div)
 }
 
-let count = 0;
-let pPrice = 0;
-let productTax = 0;
-let totalProductPrice = 0;
+
 
 function selectItems(seleceId){
     const element = document.getElementById(seleceId)
@@ -73,10 +76,21 @@ function selectItems(seleceId){
 }
 
 
-function handleBuyBtn(phoneId){
+function handleBuyBtn(Id){
     count++;
-    const findPhone = loadPhone.find(phone => phone.id === phoneId);
-    const {id, name, img, price } = findPhone;
+    const similarData = restData.find(similarId => similarId.id === Id)
+    if(similarData){
+        alert("already added")
+        return;
+    }
+    const findPhone = loadPhone.find(phone => phone.id === Id);
+    restData.push(findPhone);
+    
+    
+    const localData = getItems("cart");
+    setItems("cart", [...localData, findPhone])
+
+    const {id:productId, name, img, price } = findPhone;
     pPrice = pPrice + price;
     productTax = pPrice * 0.1;
     totalProductPrice = pPrice + productTax;
@@ -88,7 +102,7 @@ function handleBuyBtn(phoneId){
             <img class="w-[15%] h-[60px] rounded-lg" src=${img} alt="">
                 <p>${name}</p>
                 <p class="border-2 border-black rounded-lg py-1 px-4">1</p>
-                <i onclick="clearSingleProduct('${id}')" class="fa-solid fa-trash text-lg text-red-500 cursor-pointer"></i>
+                <span onclick="clearSingleProduct('${productId}')"><i  class="fa-solid fa-trash text-lg text-red-500 cursor-pointer"></i></span>
         </div>
     `;
     drawerSection.appendChild(div)
@@ -103,7 +117,8 @@ function handleBuyBtn(phoneId){
 
 function clearAllBtn(){
     const drawerSection = document.getElementById("show-drawer");
-    drawerSection.innerHTML = "";
+    drawerSection.innerText = "";
+    restData = [];
     selectItems('clearBtn').style.display = 'none';
     selectItems('badge-count').innerText = 0;
     selectItems('product').innerText = 0;
@@ -114,9 +129,85 @@ function clearAllBtn(){
     pPrice = 0;
     productTax = 0;
     totalProductPrice = 0;
+    clearItem()
 }
 
 
-function clearSingleProduct(productid){
-    console.log(productid)
+function clearSingleProduct(id){
+    const drawerSection = document.getElementById("show-drawer");
+    drawerSection.innerHTML = '';
+    count--;
+    const findPhone = restData.filter(phone => phone.id !== id);
+    restData = findPhone;
+    count = findPhone.length || 0;
+    pPrice = 0;
+    totalProductPrice = 0;
+    productTax = 0;
+    setItems("cart", findPhone)
+
+    findPhone.forEach(item => {
+        const { id: productId, name, img, price } = item;
+        pPrice = pPrice + price;
+        productTax = pPrice * 0.1;
+        totalProductPrice = pPrice + productTax;
+
+        const div = document.createElement("div");
+        div.classList.add("flex", "flex-col", "gap-3", "mb-2")
+        div.innerHTML = `
+        <div class="flex justify-between border-2 rounded-lg items-center py-2 px-3 bg-gray-300">
+            <img class="w-[15%] h-[60px] rounded-lg" src=${img} alt="">
+                <p>${name}</p>
+                <p class="border-2 border-black rounded-lg py-1 px-4">1</p>
+                <i onclick="clearSingleProduct('${productId}')" class="fa-solid fa-trash text-lg text-red-500 cursor-pointer"></i>
+        </div>
+    `;
+        drawerSection.appendChild(div)
+    })
+    
+
+
+    selectItems('badge-count').innerText = count;
+    selectItems('product').innerText = count;
+    selectItems('price').innerText = pPrice.toFixed(2)
+    selectItems('tax').innerText = productTax.toFixed(2)
+    selectItems('totalPrice').innerText = totalProductPrice.toFixed(2)
+    selectItems('clearBtn').style.display = 'block';
 }
+
+const displayLocalData = () => {
+    const localData = getItems("cart");
+    const drawerSection = document.getElementById("show-drawer");
+    drawerSection.innerHTML = '';
+    restData = localData;
+    count = localData.length || 0;
+
+    localData.forEach(item => {
+        const { id: productId, name, img, price } = item;
+        pPrice = pPrice + price;
+        productTax = pPrice * 0.1;
+        totalProductPrice = pPrice + productTax;
+
+        const div = document.createElement("div");
+        div.classList.add("flex", "flex-col", "gap-3", "mb-2")
+        div.innerHTML = `
+        <div class="flex justify-between border-2 rounded-lg items-center py-2 px-3 bg-gray-300">
+            <img class="w-[15%] h-[60px] rounded-lg" src=${img} alt="">
+                <p>${name}</p>
+                <p class="border-2 border-black rounded-lg py-1 px-4">1</p>
+                <i onclick="clearSingleProduct('${productId}')" class="fa-solid fa-trash text-lg text-red-500 cursor-pointer"></i>
+        </div>
+    `;
+        drawerSection.appendChild(div)
+    })
+
+
+
+    selectItems('badge-count').innerText = count;
+    selectItems('product').innerText = count;
+    selectItems('price').innerText = pPrice.toFixed(2)
+    selectItems('tax').innerText = productTax.toFixed(2)
+    selectItems('totalPrice').innerText = totalProductPrice.toFixed(2)
+    selectItems('clearBtn').style.display = 'block'; 
+}
+
+displayLocalData()
